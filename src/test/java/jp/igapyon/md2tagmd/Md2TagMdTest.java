@@ -21,6 +21,6 @@ import junit.framework.TestCase;
 
 public class Md2TagMdTest extends TestCase {
     public void test() throws Exception {
-        new Md2TagMd(new File("./src/test/resources/wiki/")).process();
+        new Md2TagMd(new File("./src/test/resources/wiki/"), new File("./src/test/resources/wiki.out/")).process();
     }
 }
