@@ -17,9 +17,11 @@ package jp.igapyon.md2tagmd;
 
 import java.io.File;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class Md2TagMdTest extends TestCase {
+public class Md2TagMdTest {
+
+    @Test
     public void test() throws Exception {
         new Md2TagMd(new File("./src/test/resources/wiki/"), new File("./src/test/resources/wiki.out/")).process();
     }
