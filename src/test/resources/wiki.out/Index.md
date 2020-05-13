@@ -4,7 +4,7 @@
 
 自動的に生成された Wiki のインデックスです。
 
-| Wiki 名   | タイトル      | タグ      |
+| Wiki Name | Title       | Tag      |
 | --------- | ----------- | -------- |
 | [[Bye]] | さようなら | Simple, Sample |
 | [[Hello]] | こんにちは | HelloTips, Simple, Sample |
