@@ -6,4 +6,4 @@
 
 | Wiki Name | Title       | Tag      |
 | --------- | ----------- | -------- |
-| [[Hello]] | こんにちは | HelloTips, Simple, Sample |
+| [[Hello]] | こんにちは | [[Tag_HelloTips]], [[Tag_Simple]], [[Tag_Sample]] |

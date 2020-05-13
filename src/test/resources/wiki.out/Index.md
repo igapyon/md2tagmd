@@ -6,5 +6,5 @@
 
 | Wiki Name | Title       | Tag      |
 | --------- | ----------- | -------- |
-| [[Bye]] | さようなら | Simple, Sample |
-| [[Hello]] | こんにちは | HelloTips, Simple, Sample |
+| [[Bye]] | さようなら | [[Tag_Simple]], [[Tag_Sample]] |
+| [[Hello]] | こんにちは | [[Tag_HelloTips]], [[Tag_Simple]], [[Tag_Sample]] |

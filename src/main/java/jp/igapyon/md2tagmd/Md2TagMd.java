@@ -63,7 +63,15 @@ public class Md2TagMd {
                 + "| --------- | ----------- | -------- |\n");
 
         for (Md2TagMdBean bean : beanList) {
-            builder.append("| [[" + bean.getName() + "]] | " + bean.getTitle() + " | " + bean.getTags() + " |\n");
+            String tagstext = "";
+            for (String tag : bean.getTagList()) {
+                if (tagstext.length() != 0) {
+                    tagstext += ", ";
+                }
+                tagstext += "[[Tag_" + tag + "]]";
+            }
+
+            builder.append("| [[" + bean.getName() + "]] | " + bean.getTitle() + " | " + tagstext + " |\n");
         }
 
         if (outputdir.exists() == false) {
@@ -130,7 +138,15 @@ public class Md2TagMd {
                 + "| --------- | ----------- | -------- |\n");
 
         for (Md2TagMdBean bean : memberBeanList) {
-            builder.append("| [[" + bean.getName() + "]] | " + bean.getTitle() + " | " + bean.getTags() + " |\n");
+            String tagstext = "";
+            for (String tag : bean.getTagList()) {
+                if (tagstext.length() != 0) {
+                    tagstext += ", ";
+                }
+                tagstext += "[[Tag_" + tag + "]]";
+            }
+
+            builder.append("| [[" + bean.getName() + "]] | " + bean.getTitle() + " | " + tagstext + " |\n");
         }
 
         if (outputdir.exists() == false) {
