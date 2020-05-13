@@ -18,6 +18,8 @@ package jp.igapyon.md2tagmd;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -71,10 +73,35 @@ public class Md2TagMd {
     }
 
     protected void processTags(List<Md2TagMdBean> beanList) throws IOException {
+        // そもそものタグ一覧の作成
+        List<String> tagList = new ArrayList<>();
         for (Md2TagMdBean bean : beanList) {
             for (String tag : bean.getTagList()) {
-                System.err.println(tag);
+                boolean isExists = false;
+                for (String existingtag : tagList) {
+                    if (existingtag.equalsIgnoreCase(tag)) {
+                        // すでにある
+                        isExists = true;
+                        break;
+                    }
+                }
+                if (isExists == false) {
+                    tagList.add(tag);
+                }
             }
+        }
+
+        // タグをソート
+        Collections.sort(tagList, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+
+        // タグの一覧
+        for (String tag : tagList) {
+            System.err.println(tag);
         }
     }
 
