@@ -36,7 +36,18 @@ public class Md2TagMd {
         this.outputdir = outputdir;
     }
 
+    /**
+     * 処理のエントリポイント
+     * 
+     * @throws IOException 入出力例外が発生した場合。
+     */
     public void process() throws IOException {
+        List<Md2TagMdBean> beanList = loadDir(inputdir);
+
+        processIndex(beanList);
+    }
+
+    protected void processIndex(List<Md2TagMdBean> beanList) throws IOException {
         StringBuilder builder = new StringBuilder();
         builder.append("# Wiki インデックス\n" //
                 + "\n" //
@@ -46,8 +57,6 @@ public class Md2TagMd {
                 + "\n" //
                 + "| Wiki 名   | タイトル      | タグ      |\n" //
                 + "| --------- | ----------- | -------- |\n");
-
-        List<Md2TagMdBean> beanList = loadDir();
 
         for (Md2TagMdBean bean : beanList) {
             builder.append("| [[" + bean.getName() + "]] | " + bean.getTitle() + " | " + bean.getTags() + " |\n");
@@ -59,7 +68,13 @@ public class Md2TagMd {
         FileUtils.write(new File(outputdir, "Index.md"), builder.toString(), "UTF-8");
     }
 
-    public List<Md2TagMdBean> loadDir() throws IOException {
+    /**
+     * ディレクトリの内容をロードします。
+     * 
+     * @return ロード済み内容。
+     * @throws IOException
+     */
+    public static List<Md2TagMdBean> loadDir(File inputdir) throws IOException {
         List<Md2TagMdBean> result = new ArrayList<>();
 
         List<File> fileList = Md2TagMdUtil.getFileList(inputdir);
