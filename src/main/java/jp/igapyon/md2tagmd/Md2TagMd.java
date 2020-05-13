@@ -69,6 +69,8 @@ public class Md2TagMd {
         if (outputdir.exists() == false) {
             outputdir.mkdirs();
         }
+
+        System.err.println("generate: Index.md");
         FileUtils.write(new File(outputdir, "Index.md"), builder.toString(), "UTF-8");
     }
 
@@ -103,8 +105,6 @@ public class Md2TagMd {
         for (String tag : tagList) {
             List<Md2TagMdBean> memberBeanList = new ArrayList<>();
 
-            System.err.println(tag);
-
             for (Md2TagMdBean bean : beanList) {
                 for (String check : bean.getTagList()) {
                     if (tag.equalsIgnoreCase(check)) {
@@ -114,6 +114,7 @@ public class Md2TagMd {
                 }
             }
 
+            processTag(tag, memberBeanList);
         }
     }
 
@@ -135,6 +136,8 @@ public class Md2TagMd {
         if (outputdir.exists() == false) {
             outputdir.mkdirs();
         }
+
+        System.err.println("generate: Tag_" + tagName + ".md");
         FileUtils.write(new File(outputdir, "Tag_" + tagName + ".md"), builder.toString(), "UTF-8");
     }
 
