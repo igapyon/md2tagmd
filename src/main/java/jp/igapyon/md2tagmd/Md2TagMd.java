@@ -45,6 +45,8 @@ public class Md2TagMd {
         List<Md2TagMdBean> beanList = loadDir(inputdir);
 
         processIndex(beanList);
+
+        processTags(beanList);
     }
 
     protected void processIndex(List<Md2TagMdBean> beanList) throws IOException {
@@ -66,6 +68,14 @@ public class Md2TagMd {
             outputdir.mkdirs();
         }
         FileUtils.write(new File(outputdir, "Index.md"), builder.toString(), "UTF-8");
+    }
+
+    protected void processTags(List<Md2TagMdBean> beanList) throws IOException {
+        for (Md2TagMdBean bean : beanList) {
+            for (String tag : bean.getTagList()) {
+                System.err.println(tag);
+            }
+        }
     }
 
     /**
