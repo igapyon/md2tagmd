@@ -17,6 +17,7 @@ package jp.igapyon.md2tagmd;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -46,10 +47,28 @@ public class Md2TagMd {
                 + "| Wiki 名   | タイトル      | タグ      |\n" //
                 + "| --------- | ----------- | -------- |\n");
 
+        List<Md2TagMdBean> beanList = loadDir();
+
+        for (Md2TagMdBean bean : beanList) {
+            builder.append("| [[" + bean.getName() + "]] | " + bean.getTitle() + " | " + bean.getTags() + " |\n");
+        }
+
+        if (outputdir.exists() == false) {
+            outputdir.mkdirs();
+        }
+        FileUtils.write(new File(outputdir, "Index.md"), builder.toString(), "UTF-8");
+    }
+
+    public List<Md2TagMdBean> loadDir() throws IOException {
+        List<Md2TagMdBean> result = new ArrayList<>();
+
         List<File> fileList = Md2TagMdUtil.getFileList(inputdir);
         for (File file : fileList) {
-            String title = "noname";
-            String tag = "";
+            Md2TagMdBean bean = new Md2TagMdBean();
+            result.add(bean);
+
+            bean.setName(file.getName().substring(0, file.getName().length() - ".md".length()));
+            bean.setTitle("noname");
 
             String[] contents = FileUtils.readFileToString(file, "UTF-8").split("\n");
             boolean isTitleFound = false;
@@ -57,28 +76,23 @@ public class Md2TagMd {
             for (String line : contents) {
                 if (isTitleFound == false) {
                     if (line.startsWith("#")) {
-                        title = line.substring(1).trim();
+                        bean.setTitle(line.substring(1).trim());
                         isTitleFound = true;
                     }
                 }
                 if (isTagFound == false) {
                     if (line.toLowerCase().startsWith("**tag**:")) {
-                        tag = line.substring("**tag**:".length()).trim();
+                        bean.setTags(line.substring("**tag**:".length()).trim());
                         isTagFound = true;
                     }
                     if (line.toLowerCase().startsWith("tag:")) {
-                        tag = line.substring("tag:".length()).trim();
+                        bean.setTags(line.substring("tag:".length()).trim());
                         isTagFound = true;
                     }
                 }
             }
-            builder.append("| [[" + file.getName().substring(0, file.getName().length() - ".md".length()) + "]] | "
-                    + title + " | " + tag + " |\n");
         }
 
-        if (outputdir.exists() == false) {
-            outputdir.mkdirs();
-        }
-        FileUtils.write(new File(outputdir, "Index.md"), builder.toString(), "UTF-8");
+        return result;
     }
 }
